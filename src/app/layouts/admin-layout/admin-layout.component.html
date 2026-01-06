@@ -1,0 +1,25 @@
+<div class="admin-layout">
+  <!-- Navbar -->
+  <app-navbar (toggleSidebar)="toggleMenu()"></app-navbar>
+
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <mat-sidenav-container class="sidenav-container" autosize>
+      <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile"
+        [ngClass]="{ 'sidenav-expanded': isExpanded, 'sidenav-collapsed': !isExpanded }">
+        <app-sidenav [isExpanded]="isExpanded"></app-sidenav>
+      </mat-sidenav>
+
+      <!-- Main Content -->
+      <mat-sidenav-content class="main-content" [ngClass]="{ 'expanded': isExpanded && !isMobile }">
+        <main class="page-content">
+          <app-breadcrumb></app-breadcrumb>
+          <router-outlet></router-outlet>
+        </main>
+
+        <!-- Footer -->
+        <app-footer [isExpanded]="isExpanded && !isMobile"></app-footer>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

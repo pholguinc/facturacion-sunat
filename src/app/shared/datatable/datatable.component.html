@@ -1,0 +1,163 @@
+<!-- Header con botón (fuera del card) -->
+<div class="datatable-page-header" *ngIf="addButtonLabel">
+  <button mat-raised-button class="btn-add" (click)="addClick.emit()">
+    <mat-icon>add</mat-icon>
+    {{ addButtonLabel }}
+  </button>
+</div>
+
+<!-- Card Container -->
+<div class="datatable-container">
+  <!-- Header con título y search -->
+  <div class="datatable-header">
+    <h2 class="datatable-title" *ngIf="title">{{ title }}</h2>
+
+    <div class="header-actions">
+      <!-- Filters -->
+      <ng-container *ngFor="let filter of filters">
+        <mat-form-field
+          appearance="outline"
+          class="filter-field"
+          subscriptSizing="dynamic"
+        >
+          <mat-label>{{ filter.label }}</mat-label>
+          <mat-select [(ngModel)]="filter.value" (selectionChange)="refresh()">
+            <mat-option [value]="''">Todos</mat-option>
+            <mat-option
+              *ngFor="let option of filter.options"
+              [value]="option.value"
+            >
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- Search -->
+      <div class="search-container" *ngIf="showSearch">
+        <mat-form-field
+          appearance="outline"
+          class="search-field"
+          subscriptSizing="dynamic"
+        >
+          <mat-icon matPrefix>search</mat-icon>
+          <input
+            matInput
+            [placeholder]="searchPlaceholder"
+            [value]="searchValue"
+            (input)="onSearchChange($event)"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            *ngIf="searchValue"
+            (click)="clearSearch()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" *ngIf="loading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      (matSortChange)="onSortChange($event)"
+    >
+      <!-- Dynamic Columns -->
+      <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [mat-sort-header]="column.sortable ? column.key : ''"
+          [disabled]="!column.sortable"
+          [style.width]="column.width"
+        >
+          {{ column.label }}
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let row; let i = index"
+          [style.width]="column.width"
+        >
+          <ng-container [ngSwitch]="column.type">
+            <!-- Boolean -->
+            <ng-container *ngSwitchCase="'boolean'">
+              <mat-icon
+                [class]="
+                  resolveValue(row, column.key)
+                    ? 'status-active'
+                    : 'status-inactive'
+                "
+              >
+                {{ resolveValue(row, column.key) ? "check_circle" : "cancel" }}
+              </mat-icon>
+            </ng-container>
+
+            <!-- Index (Counter) -->
+            <ng-container *ngSwitchCase="'index'">
+              {{ currentPage * pageSize + i + 1 }}
+            </ng-container>
+
+            <!-- Default -->
+            <ng-container *ngSwitchDefault>
+              {{ getValue(row, column) }}
+            </ng-container>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions" *ngIf="actions.length > 0">
+        <th mat-header-cell *matHeaderCellDef class="actions-header">
+          Acciones
+        </th>
+        <td mat-cell *matCellDef="let row" class="actions-cell">
+          <ng-container *ngFor="let action of actions">
+            <button
+              mat-icon-button
+              *ngIf="isActionVisible(action, row)"
+              [matTooltip]="action.tooltip"
+              [color]="action.color || 'primary'"
+              (click)="onActionClick(action, row)"
+            >
+              <mat-icon>{{ action.icon }}</mat-icon>
+            </button>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- No Data Row -->
+      <tr class="no-data-row" *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length" class="no-data-cell">
+          <div class="no-data-content">
+            <mat-icon>inbox</mat-icon>
+            <span>{{ noDataMessage }}</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Paginator -->
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

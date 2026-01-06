@@ -1,0 +1,75 @@
+<aside class="sidenav">
+  <!-- Logo Section -->
+  <div class="sidenav-header">
+    <div class="logo-container" *ngIf="isExpanded">
+      <mat-icon class="logo-icon">receipt_long</mat-icon>
+      <span class="logo-text">SUNAT</span>
+    </div>
+    <mat-icon *ngIf="!isExpanded" class="logo-icon-small"
+      >receipt_long</mat-icon
+    >
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Main Menu -->
+  <nav class="nav-section">
+    <span class="section-title" *ngIf="isExpanded">MENÚ PRINCIPAL</span>
+
+    <mat-nav-list>
+      <ng-container *ngFor="let item of menuItems">
+        <a
+          mat-list-item
+          *appShowForPermission="item.permission || ''"
+          [routerLink]="item.link"
+          routerLinkActive="active-link"
+          class="nav-item"
+          [matTooltip]="!isExpanded ? item.name : ''"
+          matTooltipPosition="right"
+        >
+          <mat-icon matListItemIcon class="nav-icon">{{ item.icon }}</mat-icon>
+          <span matListItemTitle *ngIf="isExpanded">{{ item.name }}</span>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </nav>
+
+  <mat-divider *ngIf="isExpanded"></mat-divider>
+
+  <!-- Configuration Menu -->
+  <nav class="nav-section">
+    <span class="section-title" *ngIf="isExpanded">CONFIGURACIÓN</span>
+
+    <mat-nav-list>
+      <ng-container *ngFor="let item of configItems">
+        <a
+          mat-list-item
+          *appShowForPermission="item.permission || ''"
+          [routerLink]="item.link"
+          routerLinkActive="active-link"
+          class="nav-item"
+          [matTooltip]="!isExpanded ? item.name : ''"
+          matTooltipPosition="right"
+        >
+          <mat-icon matListItemIcon class="nav-icon">{{ item.icon }}</mat-icon>
+          <span matListItemTitle *ngIf="isExpanded">{{ item.name }}</span>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </nav>
+
+  <!-- Spacer -->
+  <div class="spacer"></div>
+
+  <!-- User Section -->
+  <div class="user-section" *ngIf="isExpanded">
+    <mat-divider></mat-divider>
+    <div class="user-info">
+      <mat-icon class="user-avatar">account_circle</mat-icon>
+      <div class="user-details">
+        <span class="user-name">Admin User</span>
+        <span class="user-role">Administrador</span>
+      </div>
+    </div>
+  </div>
+</aside>

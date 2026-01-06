@@ -1,0 +1,231 @@
+.permissions-container {
+    // height: 100%; // Remove fixed height to allow page scrolling
+    // padding: 24px; // Remove double padding (parent has padding)
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .page-title {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+
+    .permissions-layout {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 32px;
+        align-items: start; // Important for sticky
+
+        // --- Sidebar (Left Column) ---
+        .details-sidebar {
+            position: sticky; // Make sidebar sticky
+            top: 24px; // Stick to top (adjust if navbar is fixed/overlaying)
+            height: fit-content;
+
+            mat-card-header {
+                padding: 16px;
+                border-bottom: 1px solid #efefef;
+
+                mat-card-title {
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+            }
+
+            .details-content {
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .w-100 {
+                    width: 100%;
+                }
+
+                .actions-container {
+                    margin-top: 12px;
+
+                    .btn-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                    }
+                }
+            }
+        }
+
+        // --- Main Content (Right Column) ---
+        .permissions-main {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            min-width: 0; // Prevent grid blowout
+            padding-bottom: 80px; // Ensure space for fixed footer
+
+            .loading-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 200px;
+            }
+
+            .grid-controls {
+                display: flex;
+                justify-content: space-between; // Align title/checkbox left, paginator right
+                align-items: center;
+                margin-bottom: 8px;
+                flex-wrap: wrap; // Allow wrap on small screens
+                gap: 16px;
+
+                .controls-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                }
+
+                .section-title {
+                    font-size: 18px;
+                    font-weight: 500;
+                    margin: 0;
+                    color: #555;
+                }
+
+                .custom-paginator {
+                    background: transparent; // Blend with page background
+                    font-size: 14px;
+
+                    // Override Material styles if needed to make it more compact
+                    .mat-mdc-paginator-container {
+                        min-height: 48px; // Smaller height
+                        padding: 0;
+                    }
+                }
+            }
+
+            .modules-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Mayor ancho mínimo = menos cartas por fila
+                gap: 24px;
+                // align-items removido para que las cartas se estiren (stretch) por defecto y tengan misma altura
+            }
+
+            .module-card {
+                display: flex;
+                flex-direction: column;
+                height: 100%; // Forzar altura completa para igualar a la más alta de la fila
+
+                mat-card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 12px 16px;
+                    background-color: #fafafa;
+                    border-bottom: 1px solid #f0f0f0;
+
+                    mat-card-title {
+                        margin: 0;
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+                }
+
+                mat-card-content {
+                    padding: 16px;
+                    flex: 1; // Para que el contenido ocupe el espacio disponible
+
+                    .permissions-list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Logic
+@media (max-width: 960px) {
+    .permissions-container {
+        .permissions-layout {
+            grid-template-columns: 1fr;
+            gap: 24px;
+
+            .details-sidebar {
+                position: static; // Remove sticky on mobile
+                width: 100%;
+                
+                // Ensure form fields take full width if they aren't already
+                .mat-form-field {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .permissions-container {
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+
+            .header-actions {
+                width: 100%;
+                
+                button {
+                    width: 100%;
+                }
+            }
+        }
+
+        .permissions-layout {
+            .permissions-main {
+                .grid-controls {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 16px;
+
+                    .controls-left {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        width: 100%;
+                        gap: 12px;
+
+                        // Ensure checkbox aligns nicely
+                        mat-checkbox {
+                            margin-left: 0;
+                        }
+                    }
+
+                    mat-paginator {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+
+                .modules-grid {
+                    // Allow cards to go smaller on very small screens, or 1 column full width
+                    grid-template-columns: 1fr; 
+                }
+            }
+        }
+    }
+}

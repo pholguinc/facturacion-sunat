@@ -1,0 +1,20 @@
+<div class="series-container">
+  <app-datatable
+    title="Gestión de Series y Correlativos"
+    [columns]="columns"
+    [actions]="actions"
+    [data]="series"
+    [totalItems]="totalItems"
+    [loading]="loading"
+    [pageSize]="10"
+    searchPlaceholder="Buscar series..."
+    noDataMessage="No se encontraron series"
+    addButtonLabel="Nueva Serie"
+    [filters]="filters"
+    (paramsChange)="onParamsChange($event)"
+    (actionClick)="onActionClick($event)"
+    (addClick)="onAddClick()"
+  >
+  </app-datatable>
+  <ngx-toast-center></ngx-toast-center>
+</div>

@@ -1,0 +1,86 @@
+.register-wrapper {
+    width: 100%;
+}
+
+.register-header {
+    margin-bottom: 2rem;
+    text-align: center;
+
+    h2 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: #64748b;
+        font-size: 1rem;
+    }
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; // Slightly tighter gap than login to fit more fields
+
+    .full-width {
+        width: 100%;
+
+        ::ng-deep .mat-mdc-text-field-wrapper {
+            background-color: white !important;
+        }
+    }
+
+    .password-row {
+        display: flex;
+        gap: 1rem;
+
+        .half-width {
+            flex: 1;
+
+            ::ng-deep .mat-mdc-text-field-wrapper {
+                background-color: white !important;
+            }
+        }
+    }
+}
+
+.form-actions {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+
+    .terms-link {
+        color: #3b82f6;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1.5rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    margin-bottom: 1.5rem;
+}
+
+.login-cta {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #64748b;
+
+    a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

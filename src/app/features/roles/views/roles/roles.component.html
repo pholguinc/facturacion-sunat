@@ -1,0 +1,18 @@
+<div class="roles-container">
+  <app-datatable
+    title="Gestión de Roles"
+    [columns]="columns"
+    [actions]="actions"
+    [data]="roles"
+    [totalItems]="totalItems"
+    [loading]="loading"
+    [pageSize]="10"
+    searchPlaceholder="Buscar roles..."
+    noDataMessage="No se encontraron roles"
+    addButtonLabel="Nuevo Rol"
+    (paramsChange)="onParamsChange($event)"
+    (actionClick)="onActionClick($event)"
+    (addClick)="onAddClick()"
+  >
+  </app-datatable>
+</div>

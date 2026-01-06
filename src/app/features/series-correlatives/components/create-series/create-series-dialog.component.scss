@@ -1,0 +1,21 @@
+.dialog-container {
+    min-width: 350px;
+    max-width: 500px;
+}
+
+.series-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+
+    .series-description {
+        margin: 0 0 16px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+}

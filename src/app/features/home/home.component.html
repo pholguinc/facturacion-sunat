@@ -1,0 +1,277 @@
+<div class="dashboard-container">
+    <!-- Fila 1: KPIs -->
+    <div class="kpi-grid">
+        <!-- Ingresos del Día (New) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Ingresos Hoy</div>
+                    <mat-icon class="kpi-icon">attach_money</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 3,850.00</div>
+                <div class="kpi-subtitle">35 ventas registradas</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Ingresos Mensuales (Renamed) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Ingresos Mensuales</div>
+                    <mat-icon class="kpi-icon">calendar_today</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 24,500.00</div>
+                <div class="kpi-trend positive">
+                    <mat-icon>trending_up</mat-icon> +12% vs mes anterior
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Sucursales -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Sucursales</div>
+                    <mat-icon class="kpi-icon">store</mat-icon>
+                </div>
+                <div class="kpi-value">3</div>
+                <div class="kpi-subtitle">100% Operativas</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Clientes -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Clientes</div>
+                    <mat-icon class="kpi-icon">business_center</mat-icon>
+                </div>
+                <div class="kpi-value">1,245</div>
+                <div class="kpi-subtitle">+45 nuevos este mes</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Usuarios -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Usuarios</div>
+                    <mat-icon class="kpi-icon">group</mat-icon>
+                </div>
+                <div class="kpi-value">28</div>
+                <div class="kpi-subtitle">4 conectados ahora</div>
+            </mat-card-content>
+        </mat-card>
+
+
+        <!-- Por Cobrar (New) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Por Cobrar</div>
+                    <mat-icon class="kpi-icon" style="color: #f59e0b;">warning</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 4,200.00</div>
+                <div class="kpi-subtitle">12 facturas vencidas</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Documentos Rechazados (New) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Rechazados SUNAT</div>
+                    <mat-icon class="kpi-icon" style="color: #ef4444;">error</mat-icon>
+                </div>
+                <div class="kpi-value">5</div>
+                <div class="kpi-subtitle">Requieren corrección</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Compras del Mes (Replaces Ticket Promedio) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Compras del Mes</div>
+                    <mat-icon class="kpi-icon">shopping_cart</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 12,400.00</div>
+                <div class="kpi-subtitle">Gastos operativos</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 1. Notas de Crédito -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Notas de Crédito</div>
+                    <mat-icon class="kpi-icon">remove_circle_outline</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 1,200.00</div>
+                <div class="kpi-subtitle">8 emitidas</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 2. Notas de Débito -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Notas de Débito</div>
+                    <mat-icon class="kpi-icon">add_circle_outline</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 450.00</div>
+                <div class="kpi-subtitle">3 emitidas</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 3. Guías de Remisión -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Guías de Remisión</div>
+                    <mat-icon class="kpi-icon">local_shipping</mat-icon>
+                </div>
+                <div class="kpi-value">142</div>
+                <div class="kpi-subtitle">Envíos registrados</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 4. Facturas Pagadas (Replaces Cotizaciones) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Facturas Pagadas</div>
+                    <mat-icon class="kpi-icon" style="color: #10b981;">check_circle</mat-icon>
+                </div>
+                <div class="kpi-value">92%</div>
+                <div class="kpi-subtitle">Tasa de cobro</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 5. Documentos Anulados -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Doc. Anulados</div>
+                    <mat-icon class="kpi-icon" style="color: #64748b;">delete_forever</mat-icon>
+                </div>
+                <div class="kpi-value">15</div>
+                <div class="kpi-subtitle">Bajas comunicadas</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 6. Impuesto IGV (Acumulado) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">IGV a Pagar</div>
+                    <mat-icon class="kpi-icon">account_balance</mat-icon>
+                </div>
+                <div class="kpi-value">S/ 4,410.00</div>
+                <div class="kpi-subtitle">Acumulado mes</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 7. Certificado Digital (Replaces Latencia SUNAT) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Certificado Digital</div>
+                    <mat-icon class="kpi-icon" style="color: #3b82f6;">verified_user</mat-icon>
+                </div>
+                <div class="kpi-value">120 días</div>
+                <div class="kpi-subtitle">Vence: 05/05/2026</div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- 8. Vencimiento Licencia (New) -->
+        <mat-card class="kpi-card">
+            <mat-card-content>
+                <div class="kpi-header-row">
+                    <div class="kpi-title">Suscripción Sistema</div>
+                    <mat-icon class="kpi-icon" style="color: #8b5cf6;">card_membership</mat-icon>
+                </div>
+                <div class="kpi-value">Premium</div>
+                <div class="kpi-subtitle">Renovación: 20/08/2026</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Fila 2: Ventas en el tiempo y Tipo de Comprobante -->
+    <div class="charts-grid-row">
+        <!-- Chart 1: Line Area (Bigger width) -->
+        <mat-card class="chart-card wide-card">
+            <mat-card-content>
+                <div id="chart">
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                        [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke"
+                        [title]="chartOptions.title"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Chart 2: Donut (Compact) -->
+        <mat-card class="chart-card">
+            <mat-card-content>
+                <div id="chartDonut">
+                    <apx-chart [series]="chartOptionsDonut.series" [chart]="chartOptionsDonut.chart"
+                        [labels]="chartOptionsDonut.labels" [responsive]="chartOptionsDonut.responsive"
+                        [title]="chartOptionsDonut.title"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Fila 3: Ventas por Afectación y IGV vs Base -->
+    <div class="charts-grid-row">
+        <!-- Chart 3: Bar Horizontal -->
+        <mat-card class="chart-card">
+            <mat-card-content>
+                <div id="chartBar">
+                    <apx-chart [series]="chartOptionsBar.series" [chart]="chartOptionsBar.chart"
+                        [xaxis]="chartOptionsBar.xaxis" [dataLabels]="chartOptionsBar.dataLabels"
+                        [plotOptions]="chartOptionsBar.plotOptions" [title]="chartOptionsBar.title"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Chart 4: Stacked Bar -->
+        <mat-card class="chart-card">
+            <mat-card-content>
+                <div id="chartBaseIgv">
+                    <apx-chart [series]="chartOptionsBaseIgv.series" [chart]="chartOptionsBaseIgv.chart"
+                        [xaxis]="chartOptionsBaseIgv.xaxis" [fill]="chartOptionsBaseIgv.fill"
+                        [plotOptions]="chartOptionsBaseIgv.plotOptions" [legend]="chartOptionsBaseIgv.legend"
+                        [title]="chartOptionsBaseIgv.title" [yaxis]="chartOptionsBaseIgv.yaxis"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Sección Corporativa -->
+    <h3 class="section-title">Análisis Corporativo Multi-Sucursal</h3>
+    <div class="charts-grid-row">
+        <!-- Chart 5: Comparativa Sucursales -->
+        <mat-card class="chart-card wide-card">
+            <mat-card-content>
+                <div id="chartComp">
+                    <apx-chart [series]="chartOptionsComp.series" [chart]="chartOptionsComp.chart"
+                        [xaxis]="chartOptionsComp.xaxis" [stroke]="chartOptionsComp.stroke"
+                        [grid]="chartOptionsComp.grid" [title]="chartOptionsComp.title"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Chart 6: Top Clientes -->
+        <mat-card class="chart-card">
+            <mat-card-content>
+                <div id="chartTopClients">
+                    <apx-chart [series]="chartOptionsTopClients.series" [chart]="chartOptionsTopClients.chart"
+                        [xaxis]="chartOptionsTopClients.xaxis" [plotOptions]="chartOptionsTopClients.plotOptions"
+                        [title]="chartOptionsTopClients.title"
+                        [dataLabels]="chartOptionsTopClients.dataLabels"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

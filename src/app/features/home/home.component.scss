@@ -1,0 +1,112 @@
+.dashboard-container {
+  padding: 24px;
+  padding-bottom: 80px; // Spacing strictly before footer
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #475569;
+  margin: 16px 0 8px 0;
+}
+
+// KPIs
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.kpi-card {
+  .kpi-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .kpi-title {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0; // Removed margin since it's in header-row
+  }
+
+  .kpi-icon {
+    color: #3b82f6; // Primary blueish brand color
+    opacity: 0.8;
+  }
+
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+
+  .kpi-subtitle {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  .kpi-trend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 8px;
+
+    &.positive {
+      color: #10b981;
+    }
+
+    &.negative {
+      color: #ef4444;
+    }
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// Chart Rows
+.charts-grid-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+
+  @media (min-width: 1200px) {
+
+    // Row 2: Line chart gets more space than Donut (2:1 ratio)
+    &:nth-of-type(2) {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+}
+
+.chart-card {
+  overflow: hidden;
+  height: 100%;
+
+  mat-card-header {
+    padding: 16px 16px 0;
+    margin-bottom: 0;
+  }
+
+  mat-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  mat-card-content {
+    padding: 16px;
+  }
+}

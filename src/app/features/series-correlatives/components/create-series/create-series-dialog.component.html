@@ -1,0 +1,35 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>Nuevo Serie</h2>
+
+  <mat-dialog-content>
+    <form
+      class="series-form"
+      [formGroup]="seriesForm"
+      (ngSubmit)="save()"
+      id="serieForm"
+    >
+      <p class="dialog-description">Ingresa el nombre para la nueva serie.</p>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Serie</mat-label>
+        <input matInput formControlName="serie" placeholder="Serie" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Correlativo</mat-label>
+        <input
+          matInput
+          formControlName="correlative"
+          placeholder="Correlativo"
+        />
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()" type="button">Cancelar</button>
+    <button mat-flat-button color="primary" type="submit" form="serieForm">
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</div>

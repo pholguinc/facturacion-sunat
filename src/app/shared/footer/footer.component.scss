@@ -1,0 +1,108 @@
+.footer {
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+    color: white;
+    padding: 16px 24px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 100;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    .footer-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        box-sizing: border-box;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    // Cuando el sidebar está expandido (260px)
+    &.sidebar-expanded .footer-content {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+    }
+
+    // Cuando el sidebar está colapsado (68px)
+    &.sidebar-collapsed .footer-content {
+        margin-left: 68px;
+        width: calc(100% - 68px);
+    }
+
+    .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .footer-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer-brand {
+            font-weight: 500;
+            font-size: 16px;
+        }
+    }
+
+    .footer-center {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        opacity: 0.9;
+
+        .heart-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            color: #ff5252;
+            animation: pulse 1.5s infinite;
+        }
+    }
+
+    .footer-right {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 12px 16px; // Reducir padding en móvil
+
+        .footer-content {
+            margin-left: 0 !important;
+            width: 100% !important; // Forzar ancho completo
+            flex-direction: column; // Mantener columna si es necesario, o cambiar a row con wrap
+            gap: 8px;
+        }
+
+        .footer-center {
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+
+            span {
+                white-space: normal; // Permitir que el texto largo haga salto de línea
+            }
+        }
+    }
+}

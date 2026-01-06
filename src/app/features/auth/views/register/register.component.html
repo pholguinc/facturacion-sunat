@@ -1,0 +1,59 @@
+<div class="register-wrapper">
+    <div class="register-header">
+        <h2>Crear Cuenta</h2>
+        <p>Empieza a facturar en minutos.</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre Completo</mat-label>
+            <input matInput formControlName="fullName" placeholder="Juan Pérez">
+            <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre de Empresa</mat-label>
+            <input matInput formControlName="companyName" placeholder="Mi Empresa S.A.C.">
+            <mat-icon matPrefix>business</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput formControlName="email" placeholder="ejemplo@empresa.com">
+            <mat-icon matPrefix>email</mat-icon>
+        </mat-form-field>
+
+        <div class="password-row">
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Confirmar</mat-label>
+                <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+                <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+                    <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+            <mat-checkbox formControlName="terms" color="primary">
+                Acepto los <a href="#" class="terms-link">Términos y Condiciones</a>
+            </mat-checkbox>
+        </div>
+
+        <button mat-flat-button color="primary" class="submit-btn" type="submit" [disabled]="registerForm.invalid">
+            Registrarse
+        </button>
+
+        <div class="login-cta">
+            ¿Ya tienes una cuenta? <a routerLink="/auth/login">Inicia Sesión</a>
+        </div>
+    </form>
+</div>

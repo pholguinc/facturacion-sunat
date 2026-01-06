@@ -1,0 +1,165 @@
+.sidenav {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+  color: white;
+  overflow-x: hidden;
+}
+
+.sidenav-header {
+  padding: 20px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    color: #5c6bc0;
+  }
+
+  .logo-icon-small {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    color: #5c6bc0;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.nav-section {
+  padding: 8px 0;
+
+  .section-title {
+    display: block;
+    padding: 16px 20px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+  }
+}
+
+.nav-item {
+  margin: 4px 8px;
+  border-radius: 0 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    transform: translateX(4px);
+  }
+
+  &.active-link {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+
+    .nav-icon {
+      color: white !important;
+    }
+  }
+
+  .nav-icon {
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 16px;
+    transition: color 0.2s ease;
+  }
+
+  .badge {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.user-section {
+  padding: 16px;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0;
+    margin-top: 12px;
+  }
+
+  .user-avatar {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #5c6bc0;
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .user-role {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+::ng-deep .mat-mdc-list-item {
+  height: 48px !important;
+
+  // Forzar color blanco en todos los textos del list item
+  .mdc-list-item__primary-text,
+  .mat-mdc-list-item-title,
+  .mat-mdc-list-item-unscoped-content {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+}
+
+::ng-deep .mat-divider {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+// Override adicional para los nav items
+::ng-deep .nav-item {
+  .mdc-list-item__primary-text {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  &.active-link .mdc-list-item__primary-text {
+    color: white !important;
+  }
+}

@@ -1,0 +1,121 @@
+<div class="permissions-container">
+  <div class="page-header">
+    <h1 class="page-title">Gestionar Rol y Permisos</h1>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Volver
+      </button>
+    </div>
+  </div>
+
+  <div class="permissions-layout">
+    <!-- Left Sidebar: Role Details -->
+    <mat-card class="details-sidebar">
+      <mat-card-header>
+        <mat-card-title>Detalles del Rol</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="details-content" [formGroup]="roleForm">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nombre del Rol</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Ej. Administrador"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            rows="4"
+            formControlName="description"
+            placeholder="Descripción del rol..."
+          ></textarea>
+        </mat-form-field>
+
+        <div class="actions-container">
+          <button
+            mat-raised-button
+            color="accent"
+            class="w-100"
+            (click)="save()"
+            [disabled]="roleForm.invalid || saving()"
+          >
+            <div class="btn-content" *ngIf="saving()">
+              <mat-spinner diameter="20"></mat-spinner>
+              <span>Guardando...</span>
+            </div>
+
+            <div class="btn-content" *ngIf="!saving()">
+              <mat-icon>save</mat-icon>
+              <span>Guardar Cambios</span>
+            </div>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Right Content: Permissions Grid -->
+    <div class="permissions-main">
+      <!-- Loading -->
+      <div class="loading-container" *ngIf="loading()">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <div class="grid-controls" *ngIf="!loading()">
+        <div class="controls-left">
+          <h2 class="section-title">Asignar Permisos</h2>
+          <mat-checkbox color="primary" (change)="toggleAll($event)">
+            Seleccionar todos
+          </mat-checkbox>
+        </div>
+        <mat-paginator
+          [length]="totalItems"
+          [pageSize]="limit"
+          [pageSizeOptions]="[8, 16, 24, 32, 100]"
+          [pageIndex]="page - 1"
+          (page)="onPageChange($event)"
+          class="custom-paginator"
+        >
+        </mat-paginator>
+      </div>
+
+      <!-- Modules Grid -->
+      <mat-card-content [formGroup]="permissionsForm">
+        <div class="modules-grid" *ngIf="!loading()">
+          <mat-card *ngFor="let module of modules()" class="module-card">
+            <mat-card-header>
+              <mat-card-title>{{ module.name }}</mat-card-title>
+              <mat-slide-toggle
+                color="primary"
+                [checked]="module.isActive"
+                (change)="toggleModule(module, $event)"
+              >
+                Activo
+              </mat-slide-toggle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="permissions-list">
+                <div
+                  class="permission-item"
+                  *ngFor="let permission of module.permissions"
+                >
+                  <mat-checkbox
+                    color="primary"
+                    [checked]="permission.isActive"
+                    (change)="togglePermission(permission, $event)"
+                  >
+                    {{ permission.name }}
+                  </mat-checkbox>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</div>

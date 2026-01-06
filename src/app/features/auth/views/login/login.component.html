@@ -1,0 +1,57 @@
+<div class="login-wrapper">
+  <div class="login-header">
+    <h2>Bienvenido de nuevo</h2>
+    <p>Ingresa tus credenciales para acceder a tu cuenta.</p>
+  </div>
+
+  <form [formGroup]="loginForm" class="login-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email o Nombre de Usuario</mat-label>
+      <input
+        matInput
+        formControlName="username"
+        placeholder="ejemplo@empresa.com"
+      />
+      <mat-icon matPrefix>email</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contraseña</mat-label>
+      <input
+        matInput
+        [type]="hidePassword ? 'password' : 'text'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        type="button"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-icon matPrefix>lock</mat-icon>
+    </mat-form-field>
+
+    <!-- <div class="form-actions">
+            <mat-checkbox formControlName="rememberMe" color="primary">Recordarme</mat-checkbox>
+            <a routerLink="/auth/forgot-password" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div> -->
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="submit-btn"
+      (click)="onSubmit()"
+    >
+      Iniciar Sesión
+    </button>
+
+    <div class="register-cta">
+      ¿No tienes una cuenta? <a routerLink="/auth/register">Regístrate aquí</a>
+    </div>
+  </form>
+  <ngx-toast-center></ngx-toast-center>
+</div>

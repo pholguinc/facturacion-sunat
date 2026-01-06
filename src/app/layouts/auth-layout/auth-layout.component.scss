@@ -1,0 +1,132 @@
+.auth-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+        overflow-y: auto; // Allow scroll on mobile
+    }
+
+    .auth-left {
+        flex: 1;
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); // Deep blue to bright blue
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4rem;
+        position: relative;
+        overflow: hidden;
+
+        // Mobile styles: Show as header
+        @media (max-width: 900px) {
+            display: flex;
+            flex: none; // Don't take remaining space
+            min-height: 140px;
+            padding: 1.5rem;
+            justify-content: flex-end;
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            @media (max-width: 900px) {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .brand-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 500px;
+
+            @media (max-width: 900px) {
+                font-size: 1rem;
+                display: none; // Simplify on very small screens? or keep it? Let's hide subtitle to save space
+            }
+        }
+
+        .abstract-shape {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            filter: blur(80px);
+
+            @media (max-width: 900px) {
+                width: 300px;
+                height: 300px;
+                top: -50px;
+                right: -50px;
+            }
+        }
+    }
+
+    .auth-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8fafc; // Slate 50
+        padding: 2rem;
+
+        @media (max-width: 900px) {
+            flex: 1; // Take remaining space
+            background-color: white;
+            padding: 1.5rem;
+            justify-content: flex-start; // Align to top
+            padding-top: 3rem;
+        }
+
+        .auth-content {
+            width: 100%;
+            max-width: 440px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .auth-footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+            position: absolute;
+            bottom: 1rem;
+
+            @media (max-height: 700px) {
+                position: static;
+                margin-top: 3rem;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
