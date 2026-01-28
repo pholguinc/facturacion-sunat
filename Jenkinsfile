@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Cambia 'github-creds' por el ID de tus credenciales si es diferente
+                // He cambiado 'main' por 'master' porque es lo que veo en tus logs
                 git branch: 'master', 
                     credentialsId: 'github-creds', 
                     url: 'https://github.com/pholguinc/facturacion-sunat.git'
