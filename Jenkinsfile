@@ -11,7 +11,7 @@ pipeline {
 
         stage('Environment Audit') {
         steps {
-            echo "Revisando ambiente de Docker..."
+            echo "Verificando herramientas en el servidor..."
             sh 'docker --version'
             sh 'docker-compose --version'
         }
