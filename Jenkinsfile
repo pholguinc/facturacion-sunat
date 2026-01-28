@@ -11,11 +11,9 @@ pipeline {
 
         stage('Environment Audit') {
         steps {
-            echo "Environment Information:"
-            sh 'env'
-            sh 'ls -l /usr/bin/docker || echo "Docker not in /usr/bin"'
-            sh 'docker --version || true'
-            sh 'docker-compose --version || true'
+            echo "Revisando ambiente de Docker..."
+            sh 'docker --version'
+            sh 'docker-compose --version'
         }
     }
 
