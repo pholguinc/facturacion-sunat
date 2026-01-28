@@ -1,0 +1,14 @@
+<div class="roles-container">
+  <app-datatable
+    title="Gestión de Tipos de Comprobantes"
+    [columns]="columns"
+    [data]="receiptTypes"
+    [totalItems]="totalItems"
+    [loading]="loading"
+    [pageSize]="10"
+    searchPlaceholder="Realiza tu búsqueda..."
+    noDataMessage="No se encontraron tipos de comprobantes"
+    (paramsChange)="onParamsChange($event)"
+  >
+  </app-datatable>
+</div>

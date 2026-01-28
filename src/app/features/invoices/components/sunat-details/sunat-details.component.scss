@@ -1,0 +1,74 @@
+.dialog-container {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+
+  .dialog-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color, #1976d2);
+  }
+
+  .close-btn {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.info-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.full-width {
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+textarea {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  resize: none;
+}
+
+.dialog-actions {
+  padding: 16px 0 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+mat-icon[matPrefix] {
+  margin-right: 8px;
+  color: rgba(0, 0, 0, 0.54);
+}

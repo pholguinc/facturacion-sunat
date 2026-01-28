@@ -1,0 +1,198 @@
+<div class="new-invoice-container">
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <mat-card class="form-card">
+      <mat-card-header>
+        <mat-card-title>Nuevo Comprobante</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="relative">
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" *ngIf="loadingData">
+          <mat-spinner diameter="50"></mat-spinner>
+          <span>Cargando datos...</span>
+        </div>
+        <!-- General Info Section -->
+        <div class="form-section">
+          <h3>Información General</h3>
+          <div class="form-grid">
+            <mat-form-field appearance="outline" class="col-span-3">
+              <mat-label>Fecha de Emisión</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="fechaEmision"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-3">
+              <mat-label>Moneda</mat-label>
+              <mat-select formControlName="currency">
+                <mat-option value="PEN">Soles (PEN)</mat-option>
+                <mat-option value="USD">Dólares (USD)</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-3">
+              <mat-label>Condición de Pago</mat-label>
+              <mat-select formControlName="paymentTerm">
+                <mat-option value="Contado">Contado</mat-option>
+                <mat-option value="Credito">Crédito</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-3">
+              <mat-label>Tipo de Operación</mat-label>
+              <mat-select formControlName="operationType">
+                <mat-option value="0101">Venta Interna</mat-option>
+                <mat-option value="0102">Exportación</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Row 2: Company and Branch -->
+            <mat-form-field appearance="outline" class="col-span-6">
+              <mat-label>Empresa</mat-label>
+              <input matInput formControlName="company" placeholder="Empresa" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-6">
+              <mat-label>Sucursal</mat-label>
+              <input matInput formControlName="branch" placeholder="Sucursal" />
+            </mat-form-field>
+
+            <!-- Row 3: Series and Correlative -->
+            <div class="col-span-6">
+              <app-searchable-select
+                formControlName="documentSeriesId"
+                [options]="series"
+                label="Serie"
+                placeholder="Buscar serie..."
+                [required]="true"
+                [serverSide]="true"
+                [loading]="seriesLoading"
+                [hasMore]="seriesHasMore"
+                (searchChange)="onSearchSeries($event)"
+                (scrolledToEnd)="onLoadMoreSeries()"
+              ></app-searchable-select>
+            </div>
+
+            <mat-form-field appearance="outline" class="col-span-6">
+              <mat-label>Correlativo</mat-label>
+              <input
+                matInput
+                formControlName="correlative"
+                placeholder="000001"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Customer Section -->
+        <div class="form-section" formGroupName="customer">
+          <h3>Información del Cliente</h3>
+          <div class="form-grid">
+            <mat-form-field appearance="outline" class="col-span-8">
+              <mat-label>Razón Social / Nombres</mat-label>
+              <input matInput formControlName="razon_social_nombres" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-4">
+              <mat-label>Número de Documento</mat-label>
+              <input matInput formControlName="numero_documento" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-8">
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="cliente_direccion" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-span-4">
+              <mat-label>Ubigeo</mat-label>
+              <input matInput formControlName="ubigeo" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Items Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Ítems del Comprobante</h3>
+            <button
+              type="button"
+              mat-flat-button
+              color="primary"
+              (click)="addItem()"
+            >
+              <mat-icon>add</mat-icon>
+              Agregar Ítem
+            </button>
+          </div>
+
+          <div formArrayName="items" class="items-list">
+            <div
+              *ngFor="let item of items.controls; let i = index"
+              [formGroupName]="i"
+              class="item-row"
+            >
+              <span class="item-index">{{ i + 1 }}</span>
+
+              <mat-form-field appearance="outline" class="flex-3">
+                <mat-label>Producto / Servicio</mat-label>
+                <input matInput formControlName="producto" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="flex-1">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="cantidad" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="flex-1">
+                <mat-label>P. Unitario</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="mtoPrecioUnitario"
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="flex-1">
+                <mat-label>IGV</mat-label>
+                <input matInput type="number" formControlName="mtoIgv" />
+              </mat-form-field>
+
+              <button
+                type="button"
+                mat-icon-button
+                color="warn"
+                (click)="removeItem(i)"
+                [disabled]="items.length === 1"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button type="button" mat-button (click)="cancel()">Cancelar</button>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="loading || invoiceForm.invalid"
+        >
+          {{ loading ? "Enviando..." : "Crear Comprobante" }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

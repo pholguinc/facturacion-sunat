@@ -8,6 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SearchableSelectComponent } from '@/app/shared/searchable-select/searchable-select.component';
+import { ReceiptTypesService } from '@/app/features/receipt-types/services/receipt-type.service';
+import { CommonModule } from '@angular/common';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-create-series-dialog',
@@ -19,14 +23,25 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     ControlErrorsDirective,
     FormSubmitDirective,
+    SearchableSelectComponent,
+    CommonModule,
   ],
   templateUrl: './create-series-dialog.component.html',
   styleUrl: './create-series-dialog.component.scss',
 })
-export class CreateSeriesDialogComponent {
+export class CreateSeriesDialogComponent implements OnInit {
   currentBranchId: string = '';
   private fb = inject(FormBuilder);
+  private receiptTypesService = inject(ReceiptTypesService);
   readonly dialogRef = inject(MatDialogRef<CreateSeriesDialogComponent>);
+
+  receiptTypes: any[] = [];
+  seriesOptions: any[] = [
+    { label: 'F001', value: 'F001' },
+    { label: 'F002', value: 'F002' },
+    { label: 'B001', value: 'B001' },
+    { label: 'B002', value: 'B002' },
+  ];
 
   seriesForm: FormGroup = this.fb.group({
     serie: ['', [NgxValidators.required('La serie es obligatorio')]],
@@ -43,12 +58,24 @@ export class CreateSeriesDialogComponent {
 
   constructor(private authService: AuthService) {
     this.currentBranchId = this.authService.getPayload()?.branchId;
-    console.log('currentBranchId', this.currentBranchId);
+  }
 
+  ngOnInit() {
+    this.loadReceiptTypes();
     this.seriesForm.patchValue({
       branchId: this.currentBranchId,
-      receiptTypeId: '0dcc2f3f-ae21-4ddd-b42c-a9c98dd5da07',
     });
+  }
+
+  loadReceiptTypes() {
+    this.receiptTypesService
+      .getReceiptTypeByBranchId(this.currentBranchId)
+      .subscribe((response) => {
+        this.receiptTypes = response.data.map((rt: any) => ({
+          label: rt.name,
+          value: rt.id,
+        }));
+      });
   }
 
   onNoClick(): void {
@@ -60,7 +87,7 @@ export class CreateSeriesDialogComponent {
       'Save executed. Form:',
       this.seriesForm.value,
       'Valid:',
-      this.seriesForm.valid
+      this.seriesForm.valid,
     );
     if (this.seriesForm.invalid) {
       this.seriesForm.markAllAsTouched();

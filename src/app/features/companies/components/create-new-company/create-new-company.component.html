@@ -1,0 +1,289 @@
+<div class="create-company-header" [formGroup]="searchForm">
+  <div class="search-container">
+    <mat-form-field
+      appearance="outline"
+      class="search-field"
+      subscriptSizing="dynamic"
+    >
+      <mat-icon matPrefix>search</mat-icon>
+      <input
+        matInput
+        placeholder="Ingrese el RUC de la empresa"
+        formControlName="ruc"
+        (keydown.enter)="onSearch()"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="clearSearch()"
+        *ngIf="searchForm.get('ruc')?.value"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <button
+    mat-flat-button
+    color="primary"
+    class="btn-consult"
+    (click)="onSearch()"
+    [disabled]="searchForm.invalid || loading"
+  >
+    <mat-icon *ngIf="!loading">search</mat-icon>
+    <mat-spinner *ngIf="loading" [diameter]="20"></mat-spinner>
+    {{ loading ? "Consultando..." : "Consultar" }}
+  </button>
+</div>
+
+<form class="company-form" [formGroup]="companiesForm">
+  <!-- General Information -->
+  <div class="form-section">
+    <h3 class="section-title">Información General</h3>
+    <div class="company-form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>RUC</mat-label>
+        <input matInput formControlName="ruc" placeholder="RUC" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>Razón Social</mat-label>
+        <input
+          matInput
+          formControlName="razonSocial"
+          placeholder="Razón Social"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre Comercial</mat-label>
+        <input
+          matInput
+          formControlName="nombreComercial"
+          placeholder="Nombre Comercial"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="estado" placeholder="Estado" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Condición</mat-label>
+        <input matInput formControlName="condicion" placeholder="Condición" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>Tipo Contribuyente</mat-label>
+        <input
+          matInput
+          formControlName="tipoContribuyente"
+          placeholder="Tipo"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Location -->
+  <div class="form-section">
+    <h3 class="section-title">Ubicación y Sucursales</h3>
+    <div class="company-form-grid">
+      <mat-form-field appearance="outline" class="col-span-3">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="direccion" placeholder="Dirección" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-span-3">
+        <mat-label>Domicilio Fiscal</mat-label>
+        <input
+          matInput
+          formControlName="domicilioFiscal"
+          placeholder="Domicilio Fiscal"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-span-3">
+        <mat-label>Locales Anexos</mat-label>
+        <textarea
+          matInput
+          formControlName="localesAnexos"
+          placeholder="Locales Anexos"
+          rows="2"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ubigeo</mat-label>
+        <input matInput formControlName="ubigeo" placeholder="Ubigeo" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Departamento</mat-label>
+        <input
+          matInput
+          formControlName="departamento"
+          placeholder="Departamento"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Provincia</mat-label>
+        <input matInput formControlName="provincia" placeholder="Provincia" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Distrito</mat-label>
+        <input matInput formControlName="distrito" placeholder="Distrito" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- SUNAT Details -->
+  <div class="form-section">
+    <h3 class="section-title">Detalles SUNAT</h3>
+    <div class="company-form-grid">
+      <mat-form-field appearance="outline" class="col-span-3">
+        <mat-label>Actividad Económica</mat-label>
+        <input
+          matInput
+          formControlName="actividadEconomica"
+          placeholder="Actividad Económica"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número de Empleados</mat-label>
+        <input
+          matInput
+          formControlName="numeroEmpleados"
+          placeholder="Número de Empleados"
+        />
+      </mat-form-field>
+
+      <div class="checkbox-group">
+        <mat-checkbox formControlName="esAgenteRetencion"
+          >Agente Retención</mat-checkbox
+        >
+        <mat-checkbox formControlName="esBuenContribuyente"
+          >Buen Contribuyente</mat-checkbox
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings & Contact -->
+  <div class="form-section">
+    <h3 class="section-title">Configuración y Contacto</h3>
+    <div class="company-form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo Electrónico</mat-label>
+        <input
+          matInput
+          formControlName="correo"
+          placeholder="correo@ejemplo.com"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono" placeholder="Teléfono" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>IGV (%)</mat-label>
+        <input matInput type="number" formControlName="igv" placeholder="18" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de Cambio</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="tipoCambio"
+          placeholder="0.00"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Credentials -->
+  <div class="form-section">
+    <h3 class="section-title">Credenciales de Producción</h3>
+    <div class="company-form-grid">
+      <div class="col-span-3 certificate-upload-container">
+        <input
+          #fileInput
+          type="file"
+          (change)="onFileSelected($event)"
+          style="display: none"
+          accept=".pfx"
+        />
+        <div class="certificate-header">
+          <mat-label>Certificado Digital</mat-label>
+          <button
+            mat-stroked-button
+            color="accent"
+            type="button"
+            (click)="fileInput.click()"
+          >
+            <mat-icon>upload_file</mat-icon>
+            Subir archivo de certificado
+          </button>
+        </div>
+        <mat-form-field appearance="outline" class="w-full">
+          <textarea
+            matInput
+            formControlName="certificado"
+            placeholder="Código del certificado..."
+            rows="6"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Clave Certificado</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="claveCertificado"
+          placeholder="Clave Certificado"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario Secundario</mat-label>
+        <input
+          matInput
+          formControlName="usuarioSecundarioProduccion"
+          placeholder="Usuario SOL"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Clave Usuario Secundario</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="claveUsuarioSecundarioProduccion"
+          placeholder="Clave SOL"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button mat-stroked-button type="button" (click)="onCancel()">
+      Cancelar
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="onSave()"
+      [disabled]="companiesForm.invalid"
+    >
+      Guardar Empresa
+    </button>
+  </div>
+</form>

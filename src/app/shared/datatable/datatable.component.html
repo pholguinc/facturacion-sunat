@@ -130,7 +130,8 @@
               [color]="action.color || 'primary'"
               (click)="onActionClick(action, row)"
             >
-              <mat-icon>{{ action.icon }}</mat-icon>
+              <mat-icon *ngIf="!action.isSvg">{{ action.icon }}</mat-icon>
+              <mat-icon *ngIf="action.isSvg" [svgIcon]="action.icon"></mat-icon>
             </button>
           </ng-container>
         </td>

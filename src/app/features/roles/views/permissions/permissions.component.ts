@@ -32,23 +32,25 @@ import {
   switchMap,
 } from 'rxjs';
 import { RoleUpdateRequest } from '../../interfaces/roles.interface';
+import { ControlErrorsDirective } from '@/app/core/directives/control-error.directive';
+import { FormSubmitDirective } from '@/app/core/directives/form-submit.directive';
 
 @Component({
   selector: 'app-permissions',
   standalone: true,
   imports: [
-    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    ControlErrorsDirective,
     MatCardModule,
     MatSlideToggleModule,
     MatCheckboxModule,
     MatDividerModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
   ],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.scss',
@@ -76,7 +78,7 @@ export class PermissionsComponent implements OnInit {
     private permissionsService: PermissionsService,
     private rolesService: RolesService,
     private fb: FormBuilder,
-    private location: Location
+    private location: Location,
   ) {
     this.roleForm = this.fb.group({
       name: ['', Validators.required],
@@ -106,7 +108,7 @@ export class PermissionsComponent implements OnInit {
         });
         this.currentBranchId.set(response.data.branchId);
         this.assignedPermissionIds.set(
-          new Set(response.data.permissions.map((p) => p.id))
+          new Set(response.data.permissions.map((p) => p.id)),
         );
         this.loadPermissions();
       }
@@ -127,7 +129,7 @@ export class PermissionsComponent implements OnInit {
 
     try {
       const response = await firstValueFrom(
-        this.permissionsService.getPermissions(params)
+        this.permissionsService.getPermissions(params),
       );
       const modulesData = response.data.modules;
       this.totalItems = response.data.totalItems;
@@ -252,7 +254,7 @@ export class PermissionsComponent implements OnInit {
           finalize(() => {
             this.saving.set(false);
             this.loading.set(false);
-          })
+          }),
         )
         .subscribe();
       console.log('Selected IDs:', selectedPermissions);

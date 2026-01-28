@@ -1,11 +1,19 @@
 import { NgFor, NgIf, NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/auth/services/auth.service';
+import { ReceiptTypesService } from '../../features/receipt-types/services/receipt-type.service';
 import { ShowForPermissionDirective } from '../directives/show-for-permission.directive';
 
 interface RouteLink {
@@ -34,11 +42,36 @@ interface RouteLink {
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
 })
-export class Sidenav {
+export class Sidenav implements OnInit {
   @Input() isExpanded: boolean = false;
   @Output() toggleMenu = new EventEmitter<void>();
 
-  constructor(public authService: AuthService) {}
+  receiptTypes = signal<any[]>([]);
+
+  constructor(
+    public authService: AuthService,
+    private receiptTypesService: ReceiptTypesService,
+  ) {}
+
+  ngOnInit() {
+    this.loadReceiptTypes();
+  }
+
+  private loadReceiptTypes() {
+    this.receiptTypesService
+      .getReceiptTypes({ page: 1, limit: 100 })
+      .subscribe({
+        next: (response) => {
+          if (response && response.data) {
+            const items = response.data.items;
+            this.receiptTypes.set(items);
+            this.updateMenuItems(items);
+          }
+        },
+        error: (err) =>
+          console.error('Error loading receipt types in sidenav', err),
+      });
+  }
 
   public menuItems: RouteLink[] = [
     {
@@ -79,6 +112,26 @@ export class Sidenav {
     },
   ];
 
+  private updateMenuItems(types: any[]) {
+    const updatedMenuItems = this.menuItems.map((item) => {
+      // Don't apppend ID if it's already there or if it's the dashboard
+      if (item.link === '/admin/home' || item.link.split('/').length > 3)
+        return item;
+
+      const type = types.find((t) =>
+        t.name.toLowerCase().includes(item.name.toLowerCase().replace('s', '')),
+      );
+      if (type) {
+        return {
+          ...item,
+          link: `${item.link}/${type.id}`,
+        };
+      }
+      return item;
+    });
+    this.menuItems = updatedMenuItems;
+  }
+
   public configItems: RouteLink[] = [
     {
       link: '/admin/clientes',
@@ -102,6 +155,17 @@ export class Sidenav {
       name: 'Series y Correlativos',
       icon: 'format_list_numbered',
       permission: 'list.series.correlatives',
+    },
+
+    {
+      link: '/admin/tipo-comprobante',
+      name: 'Tipo de Comprobante',
+      icon: 'receipt_long',
+    },
+    {
+      link: '/admin/empresas',
+      name: 'Empresas',
+      icon: 'business',
     },
     {
       link: '/admin/reportes',

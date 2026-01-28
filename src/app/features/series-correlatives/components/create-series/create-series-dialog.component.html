@@ -10,10 +10,20 @@
     >
       <p class="dialog-description">Ingresa el nombre para la nueva serie.</p>
 
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Serie</mat-label>
-        <input matInput formControlName="serie" placeholder="Serie" />
-      </mat-form-field>
+      <app-searchable-select
+        formControlName="serie"
+        [options]="seriesOptions"
+        label="Serie"
+        placeholder="Buscar o seleccionar serie..."
+        [required]="true"
+      ></app-searchable-select>
+
+      <app-searchable-select
+        formControlName="receiptTypeId"
+        [options]="receiptTypes"
+        label="Documento"
+        placeholder="Buscar documento..."
+      ></app-searchable-select>
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Correlativo</mat-label>

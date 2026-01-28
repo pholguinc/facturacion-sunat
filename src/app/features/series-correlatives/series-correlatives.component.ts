@@ -23,7 +23,6 @@ import { SeriesService } from './services/series.service';
 import { AuthService } from '../auth/services/auth.service';
 import { NgxToastService, NgxToastModule } from '@angular-magic/ngx-toast';
 import { Serie, SerieCreateRequest } from './interfaces/series.interface';
-import { CreateRoleDialogComponent } from '../roles/components/create-role-dialog/create-role-dialog.component';
 import { CreateSeriesDialogComponent } from './components/create-series/create-series-dialog.component';
 import Swal from 'sweetalert2';
 
@@ -66,7 +65,7 @@ export class SeriesCorrelativesComponent implements OnInit {
     private seriesService: SeriesService,
     private authService: AuthService,
     private ngxToastService: NgxToastService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -185,7 +184,7 @@ export class SeriesCorrelativesComponent implements OnInit {
             }),
             finalize(() => {
               this.loading = false;
-            })
+            }),
           )
           .subscribe();
       }
@@ -245,7 +244,7 @@ export class SeriesCorrelativesComponent implements OnInit {
                 ],
               });
               return of(null);
-            })
+            }),
           )
           .subscribe();
       }
@@ -256,7 +255,7 @@ export class SeriesCorrelativesComponent implements OnInit {
     try {
       this.loading = true;
       const response = await firstValueFrom(
-        this.seriesService.getSeries(params)
+        this.seriesService.getSeries(params),
       );
       this.series = response.data.items;
       this.totalItems = response.data.totalItems;

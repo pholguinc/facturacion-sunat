@@ -1,0 +1,55 @@
+<mat-form-field appearance="outline" class="w-100">
+  <mat-label class="mat-label">{{ label }}</mat-label>
+  <mat-select
+    #matSelect
+    [value]="selectedValue"
+    (selectionChange)="onSelectionChange($event.value)"
+    [disabled]="isDisabled"
+    (openedChange)="$event ? onOpened() : onClosed()"
+    [required]="required"
+  >
+    <!-- Search Input Box -->
+    <div class="search-container" (click)="$event.stopPropagation()">
+      <mat-form-field
+        appearance="fill"
+        class="search-field internal-search-field"
+      >
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          #searchInput
+          [formControl]="searchControl"
+          [placeholder]="placeholder"
+          autocomplete="off"
+        />
+        <button
+          *ngIf="searchControl.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="clearSearch($event)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <!-- Options -->
+    <mat-option *ngIf="filteredOptions.length === 0 && !loading" disabled>
+      No se encontraron resultados
+    </mat-option>
+
+    <mat-option
+      *ngFor="let option of filteredOptions; trackBy: trackByFn"
+      [value]="option[valueKey]"
+    >
+      {{ option[displayKey] }}
+    </mat-option>
+
+    <!-- Loading / Load More -->
+    <div *ngIf="loading" class="select-loading">
+      <mat-spinner diameter="20"></mat-spinner>
+      <span>Cargando...</span>
+    </div>
+  </mat-select>
+</mat-form-field>

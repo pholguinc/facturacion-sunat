@@ -1,0 +1,42 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 mat-dialog-title class="dialog-title">Información SUNAT</h2>
+    <button mat-icon-button (click)="onNoClick()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content [formGroup]="form">
+    <div class="details-grid">
+      <div class="info-row">
+        <mat-form-field appearance="outline" class="flex-1">
+          <mat-label>Número de Documento</mat-label>
+          <input matInput formControlName="documentNumber" />
+          <mat-icon matPrefix>description</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="flex-1">
+          <mat-label>Estado SUNAT</mat-label>
+          <input matInput formControlName="status" />
+          <mat-icon matPrefix>info</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100 full-width">
+        <mat-label>Respuesta SUNAT</mat-label>
+        <textarea
+          matInput
+          formControlName="respuestaSunat"
+          rows="6"
+          placeholder="Sin respuesta aún..."
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-raised-button color="primary" (click)="onNoClick()">
+      Cerrar
+    </button>
+  </mat-dialog-actions>
+</div>

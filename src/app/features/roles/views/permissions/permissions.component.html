@@ -43,15 +43,17 @@
             (click)="save()"
             [disabled]="roleForm.invalid || saving()"
           >
-            <div class="btn-content" *ngIf="saving()">
-              <mat-spinner diameter="20"></mat-spinner>
-              <span>Guardando...</span>
-            </div>
-
-            <div class="btn-content" *ngIf="!saving()">
-              <mat-icon>save</mat-icon>
-              <span>Guardar Cambios</span>
-            </div>
+            @if (saving()) {
+              <div class="btn-content">
+                <mat-spinner diameter="20"></mat-spinner>
+                <span>Guardando...</span>
+              </div>
+            } @else {
+              <div class="btn-content">
+                <mat-icon>save</mat-icon>
+                <span>Guardar Cambios</span>
+              </div>
+            }
           </button>
         </div>
       </mat-card-content>
@@ -60,61 +62,71 @@
     <!-- Right Content: Permissions Grid -->
     <div class="permissions-main">
       <!-- Loading -->
-      <div class="loading-container" *ngIf="loading()">
-        <mat-spinner diameter="40"></mat-spinner>
-      </div>
-
-      <div class="grid-controls" *ngIf="!loading()">
-        <div class="controls-left">
-          <h2 class="section-title">Asignar Permisos</h2>
-          <mat-checkbox color="primary" (change)="toggleAll($event)">
-            Seleccionar todos
-          </mat-checkbox>
+      @if (loading()) {
+        <div class="loading-container">
+          <mat-spinner diameter="40"></mat-spinner>
         </div>
-        <mat-paginator
-          [length]="totalItems"
-          [pageSize]="limit"
-          [pageSizeOptions]="[8, 16, 24, 32, 100]"
-          [pageIndex]="page - 1"
-          (page)="onPageChange($event)"
-          class="custom-paginator"
-        >
-        </mat-paginator>
-      </div>
+      }
+
+      @if (!loading()) {
+        <div class="grid-controls">
+          <div class="controls-left">
+            <h2 class="section-title">Asignar Permisos</h2>
+            <mat-checkbox color="primary" (change)="toggleAll($event)">
+              Seleccionar todos
+            </mat-checkbox>
+          </div>
+          <mat-paginator
+            [length]="totalItems"
+            [pageSize]="limit"
+            [pageSizeOptions]="[8, 16, 24, 32, 100]"
+            [pageIndex]="page - 1"
+            (page)="onPageChange($event)"
+            class="custom-paginator"
+          >
+          </mat-paginator>
+        </div>
+      }
 
       <!-- Modules Grid -->
       <mat-card-content [formGroup]="permissionsForm">
-        <div class="modules-grid" *ngIf="!loading()">
-          <mat-card *ngFor="let module of modules()" class="module-card">
-            <mat-card-header>
-              <mat-card-title>{{ module.name }}</mat-card-title>
-              <mat-slide-toggle
-                color="primary"
-                [checked]="module.isActive"
-                (change)="toggleModule(module, $event)"
-              >
-                Activo
-              </mat-slide-toggle>
-            </mat-card-header>
-            <mat-divider></mat-divider>
-            <mat-card-content>
-              <div class="permissions-list">
-                <div
-                  class="permission-item"
-                  *ngFor="let permission of module.permissions"
-                >
-                  <mat-checkbox
+        @if (!loading()) {
+          <div class="modules-grid">
+            @for (module of modules(); track module.id) {
+              <mat-card class="module-card">
+                <mat-card-header>
+                  <mat-card-title>{{ module.name }}</mat-card-title>
+                  <mat-slide-toggle
                     color="primary"
-                    [checked]="permission.isActive"
-                    (change)="togglePermission(permission, $event)"
+                    [checked]="module.isActive"
+                    (change)="toggleModule(module, $event)"
                   >
-                    {{ permission.name }}
-                  </mat-checkbox>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
+                    Activo
+                  </mat-slide-toggle>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                  <div class="permissions-list">
+                    @for (
+                      permission of module.permissions;
+                      track permission.id
+                    ) {
+                      <div class="permission-item">
+                        <mat-checkbox
+                          color="primary"
+                          [checked]="permission.isActive"
+                          (change)="togglePermission(permission, $event)"
+                        >
+                          {{ permission.name }}
+                        </mat-checkbox>
+                      </div>
+                    }
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            }
+          </div>
+        }
       </mat-card-content>
     </div>
   </div>

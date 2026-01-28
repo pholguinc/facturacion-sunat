@@ -1,0 +1,19 @@
+<div class="invoices-container">
+  <app-datatable
+    title="Gestión de Facturas"
+    [columns]="columns"
+    [actions]="actions"
+    [data]="invoices"
+    [totalItems]="totalItems"
+    [loading]="loading"
+    [pageSize]="10"
+    searchPlaceholder="Buscar series..."
+    noDataMessage="No se encontraron series"
+    addButtonLabel="Nueva Factura"
+    (paramsChange)="onParamsChange($event)"
+    (actionClick)="onActionClick($event)"
+    (addClick)="onAddClick()"
+  >
+  </app-datatable>
+  <ngx-toast-center></ngx-toast-center>
+</div>

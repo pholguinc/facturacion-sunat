@@ -1,0 +1,18 @@
+<div class="roles-container">
+  <app-datatable
+    title="Gestión de Empresas"
+    [columns]="columns"
+    [actions]="actions"
+    [data]="companies"
+    [totalItems]="totalItems"
+    [loading]="loading"
+    [pageSize]="10"
+    searchPlaceholder="Buscar empresas..."
+    noDataMessage="No se encontraron empresas"
+    addButtonLabel="Nueva Empresa"
+    (paramsChange)="onParamsChange($event)"
+    (actionClick)="onActionClick($event)"
+    (addClick)="onCreate()"
+  >
+  </app-datatable>
+</div>

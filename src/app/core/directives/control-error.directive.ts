@@ -28,19 +28,21 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   private readonly submit$ = this.form ? this.form.submit$ : EMPTY;
   private readonly blurEvent$ = fromEvent(
     this.elementRef.nativeElement,
-    'blur'
+    'blur',
   );
 
   ngOnInit(): void {
-    merge(
+    const streams = [
       this.submit$.pipe(
         tap(() => {
           this.ngControl.control!.markAsTouched();
-        })
+        }),
       ),
       this.blurEvent$,
-      this.ngControl.statusChanges!
-    )
+      this.ngControl.control?.statusChanges || EMPTY,
+    ].filter((s) => !!s);
+
+    merge(...streams)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         const errorControl = getFormControlError(this.ngControl.control!);
@@ -53,7 +55,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   }
   private _isMatInput() {
     return this.elementRef.nativeElement.classList.contains(
-      'mat-mdc-input-element'
+      'mat-mdc-input-element',
     );
   }
 
@@ -62,21 +64,21 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     while (parentElement) {
       if (parentElement.classList.contains('mat-mdc-form-field')) {
         const mdcFieldWrapper = parentElement.querySelector(
-          '.mat-mdc-text-field-wrapper'
+          '.mat-mdc-text-field-wrapper',
         );
         if (mdcFieldWrapper) {
           mdcFieldWrapper.classList.add(
-            'mat-mdc-form-field-subscript-dynamic-size'
+            'mat-mdc-form-field-subscript-dynamic-size',
           );
         }
 
         const subscriptWrapper = parentElement.querySelector(
-          '.mat-mdc-form-field-subscript-wrapper'
+          '.mat-mdc-form-field-subscript-wrapper',
         );
 
         if (subscriptWrapper) {
           subscriptWrapper.appendChild(
-            this.componentRef.location.nativeElement
+            this.componentRef.location.nativeElement,
           );
         }
         break;
