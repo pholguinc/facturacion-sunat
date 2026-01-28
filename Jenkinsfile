@@ -10,7 +10,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                // Cambia 'github-creds' por el ID de tus credenciales si es diferente
+                git branch: 'master', 
+                    credentialsId: 'github-creds', 
+                    url: 'https://github.com/pholguinc/facturacion-sunat.git'
             }
         }
 

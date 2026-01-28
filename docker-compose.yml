@@ -6,5 +6,4 @@ services:
     container_name: facturacion-sunat-frontend
     ports:
       - "80:80"
-      
     restart: always
