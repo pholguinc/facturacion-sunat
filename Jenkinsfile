@@ -8,14 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // He cambiado 'main' por 'master' porque es lo que veo en tus logs
-                git branch: 'master', 
-                    credentialsId: 'github-creds', 
-                    url: 'https://github.com/pholguinc/facturacion-sunat.git'
-            }
-        }
 
         stage('Environment Audit') {
         steps {
