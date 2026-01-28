@@ -18,13 +18,14 @@ pipeline {
         }
 
         stage('Environment Audit') {
-            steps {
-                echo "Environment Information:"
-                sh 'docker --version'
-                sh 'docker-compose --version'
-                sh 'bun --version || echo "Bun not installed on host, will use Docker for everything"'
-            }
+        steps {
+            echo "Environment Information:"
+            sh 'env'
+            sh 'ls -l /usr/bin/docker || echo "Docker not in /usr/bin"'
+            sh 'docker --version || true'
+            sh 'docker-compose --version || true'
         }
+    }
 
         stage('Build & Deploy') {
             steps {
